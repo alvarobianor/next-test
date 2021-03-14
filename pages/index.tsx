@@ -3,8 +3,6 @@ import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import api from "../src/api";
 
-import Platform from "react-platform-js";
-
 export default function Home() {
   interface Root {
     user: User;
@@ -14,8 +12,6 @@ export default function Home() {
     name: string;
     url: string;
   }
-
-  console.log(Platform.OS as string);
 
   const registerUser = async (event) => {
     event.preventDefault();

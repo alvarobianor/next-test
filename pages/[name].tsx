@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import api from "../src/api";
 import { useRouter } from "next/router";
+import Platform from "react-platform-js";
 
 interface User {
   name: string;
@@ -12,7 +13,16 @@ interface User {
 export default function Home() {
   const route = useRouter();
 
-  const { name: urlName } = route.query;
+  const urlApi =
+    "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyATRxIHp82xCYa1hCTa5b8hTNrqB49TIeU";
+
+  const { name: urlName, id } = route.query;
+
+  const drive =
+    "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
+  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${drive}&ibi=com.example.ios`;
+
+  console.log(id);
 
   const getUser = async () => {
     try {
@@ -22,44 +32,27 @@ export default function Home() {
         },
       } = await api.get(`/${urlName}`);
       setName(nameUser);
-      setUrl(url);
+
+      const rawResponse = await fetch(urlApi, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ longDynamicLink }),
+      });
+
+      const { shortLink } = await rawResponse.json();
+      console.log(shortLink);
+      setUrl(shortLink);
     } catch (error) {
       console.log(error);
       route.push("/");
     }
   };
 
-  const deepLink = () => {
-    console.log("aaaaa");
-    setUrl("https://alvarobianorrn.page.link/test");
-  };
-
   useEffect(() => {
     urlName && getUser();
   }, [urlName]);
-
-  // const registerUser = async (event) => {
-  //   event.preventDefault();
-
-  //   const user: User = {
-  //     name,
-  //     url: "",
-  //   };
-
-  //   try {
-
-  //     const {
-  //       data: { user: userCreated },
-  //     } = await api.post("/admin", user);
-  //     setName("");
-  //     console.log(userCreated);
-
-  //     alert("Created!");
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert("Error");
-  //   }
-  // };
 
   const [name, setName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
@@ -67,8 +60,8 @@ export default function Home() {
   return (
     <div className={styles.container2}>
       {name && <h1>Esse é o {name}</h1>}
-      <button type="button" onClick={deepLink}>
-        <a href="https://alvarobianorrn.page.link/host">Share</a>
+      <button type="button">
+        <a href={Platform.OS !== "Android" ? drive : url}>Share</a>
       </button>
     </div>
   );
