@@ -29,6 +29,11 @@ export default function Home() {
     }
   };
 
+  const deepLink = () => {
+    console.log("aaaaa");
+    setUrl("https://alvarobianorrn.page.link/test");
+  };
+
   useEffect(() => {
     urlName && getUser();
   }, [urlName]);
@@ -62,7 +67,9 @@ export default function Home() {
   return (
     <div className={styles.container2}>
       {name && <h1>Esse é o {name}</h1>}
-      <button type="button">Share</button>
+      <button type="button" onClick={deepLink}>
+        <a href="https://alvarobianorrn.page.link/host">Share</a>
+      </button>
     </div>
   );
 }
