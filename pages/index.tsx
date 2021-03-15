@@ -51,7 +51,7 @@ export default function Home() {
         />
         <br />
         <button className={styles.enter} type="submit">
-          CREATE
+          Create
         </button>
         {/* <h2>{Platform.OS}</h2> */}
       </form>
