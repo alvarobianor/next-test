@@ -10,7 +10,6 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "axios": "^0.21.1",
-    "dotenv": "^8.2.0",
     "fs": "^0.0.1-security",
     "next": "10.0.8",
     "react": "17.0.1",
