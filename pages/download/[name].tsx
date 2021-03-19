@@ -18,7 +18,8 @@ export default function Home() {
 
   const { name: urlName, id } = route.query;
 
-  const drive = `https://localhost:3000/download/${urlName}`;
+  const drive =
+    "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
   const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${drive}&ibi=com.example.ios`;
 
   console.log(id);
@@ -60,7 +61,7 @@ export default function Home() {
     <div className={styles.container2}>
       {name && <h1>Esse é o {name}</h1>}
       <button type="button">
-        <a href={Platform.OS !== "Android" ? drive : url}>Download</a>
+        <a href={drive}>Download</a>
       </button>
     </div>
   );
