@@ -4,7 +4,6 @@ import styles from "../styles/Home.module.css";
 import api from "../src/api";
 import { useRouter } from "next/router";
 import Platform from "react-platform-js";
-
 interface User {
   name: string;
   url: string;
@@ -12,6 +11,9 @@ interface User {
 
 export default function Home() {
   const route = useRouter();
+
+  // mudar para receber dotenv
+  const baseUrl = "http://localhost:3000/download/";
 
   const urlApi =
     "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyATRxIHp82xCYa1hCTa5b8hTNrqB49TIeU";
@@ -21,10 +23,10 @@ export default function Home() {
   const drive =
     "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
 
-  const localHost = `https://localhost:3000/download/${urlName}`;
-  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${localHost}&apn=com.alvarobianorrn&afl=${drive}&ibi=com.example.ios`;
+  const localHost = `${baseUrl}${urlName}`;
+  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=com.example.ios`;
 
-  console.log(id);
+  console.log("base", process.env.DOMAIN);
 
   const getUser = async () => {
     try {
@@ -66,7 +68,9 @@ export default function Home() {
         type="button"
         onClick={() => {
           // add tratamento quando tiver o ios
-          navigator.clipboard.writeText(url);
+          navigator.clipboard.writeText(
+            Platform.OS !== "Android" ? localHost : url
+          );
         }}
       >
         Share
