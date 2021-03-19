@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import api from "../../src/api";
 import { useRouter } from "next/router";
 import Platform from "react-platform-js";
