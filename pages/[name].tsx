@@ -13,7 +13,7 @@ export default function Home() {
   const route = useRouter();
 
   // mudar para receber dotenv
-  const baseUrl = "http://localhost:3000/download/";
+  const baseUrl = process.env.DO;
 
   const urlApi =
     "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyATRxIHp82xCYa1hCTa5b8hTNrqB49TIeU";
@@ -25,12 +25,6 @@ export default function Home() {
 
   const localHost = `${baseUrl}${urlName}`;
   const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=com.example.ios`;
-
-  const a = process.env.DOMAIN;
-  const b = process.env.DO;
-
-  console.log("base", a);
-  console.log("base2", b);
 
   const getUser = async () => {
     try {
