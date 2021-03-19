@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
-import api from "../src/api";
+import api from "../../src/api";
 import { useRouter } from "next/router";
 import Platform from "react-platform-js";
 
@@ -59,14 +59,9 @@ export default function Home() {
 
   return (
     <div className={styles.container2}>
-      {name && <h1>This page is for: {name}</h1>}
-      <button
-        type="button"
-        onClick={() => {
-          navigator.clipboard.writeText(url);
-        }}
-      >
-        Share
+      {name && <h1>Esse é o {name}</h1>}
+      <button type="button">
+        <a href={Platform.OS !== "Android" ? drive : url}>Share</a>
       </button>
     </div>
   );
