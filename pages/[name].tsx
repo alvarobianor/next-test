@@ -17,7 +17,7 @@ export default function Home() {
   const base = JSON.stringify(process.env.NEXT_PUBLIC_DO);
   const [, baseUrl, y] = base.split(`"`);
 
-  console.log(baseUrl);
+  console.log(route.pathname);
 
   const urlApi =
     "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyATRxIHp82xCYa1hCTa5b8hTNrqB49TIeU";
@@ -28,7 +28,7 @@ export default function Home() {
     "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
 
   const localHost = `${baseUrl}${urlName}`;
-  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${baseUrl}&ibi=com.example.ios`;
+  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=com.example.ios`;
 
   const getUser = async () => {
     try {
