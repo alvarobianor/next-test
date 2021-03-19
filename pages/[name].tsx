@@ -26,7 +26,7 @@ export default function Home() {
   const localHost = `${baseUrl}${urlName}`;
   const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=com.example.ios`;
 
-  console.log("base", process.env.DOMAIN);
+  console.log("base", process.env.DO);
 
   const getUser = async () => {
     try {
