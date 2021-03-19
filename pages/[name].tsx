@@ -13,9 +13,12 @@ export default function Home() {
   const route = useRouter();
 
   // mudar para receber dotenv
-  const baseUrl = process.env.NEX_PUBLIC_DO;
+
+  const base = JSON.stringify(process.env.NEXT_PUBLIC_DO);
+  const [, baseUrl, y] = base.split(`"`);
 
   console.log(baseUrl);
+
   const urlApi =
     "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyATRxIHp82xCYa1hCTa5b8hTNrqB49TIeU";
 
@@ -25,7 +28,7 @@ export default function Home() {
     "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
 
   const localHost = `${baseUrl}${urlName}`;
-  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=com.example.ios`;
+  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${baseUrl}&ibi=com.example.ios`;
 
   const getUser = async () => {
     try {
@@ -63,7 +66,7 @@ export default function Home() {
   return (
     <div className={styles.container2}>
       {name && <h1>This page is for: {name}</h1>}
-      <h1>a: {JSON.stringify(process.env.NEXT_PUBLIC_DO)}</h1>
+
       <button
         type="button"
         onClick={() => {
