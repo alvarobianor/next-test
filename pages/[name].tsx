@@ -1,4 +1,5 @@
-import Head from "next/head";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import api from "../src/api";
@@ -17,24 +18,36 @@ export default function Home() {
   const base = JSON.stringify(process.env.NEXT_PUBLIC_DO);
   const [, baseUrl, y] = base.split(`"`);
 
-  console.log(route.pathname);
-
   const urlApi =
     "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyATRxIHp82xCYa1hCTa5b8hTNrqB49TIeU";
 
-  const { name: urlName, id } = route.query;
-
-  const drive =
-    "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
-
+  const { name: urlName } = route.query;
   const localHost = `${baseUrl}${urlName}`;
-  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=com.example.ios`;
+  const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${localHost}&ibi=${localHost}`;
+
+  function Alert(props: AlertProps) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const getUser = async () => {
     try {
       const {
         data: {
-          user: { name: nameUser, url },
+          user: { name: nameUser },
         },
       } = await api.get(`/${urlName}`);
       setName(nameUser);
@@ -64,20 +77,36 @@ export default function Home() {
   const [url, setUrl] = useState<string>("");
 
   return (
-    <div className={styles.container2}>
-      {name && <h1>This page is for: {name}</h1>}
+    <div className={styles.container}>
+      {name && (
+        <div className={styles.container2}>
+          <h1 className={styles.H1}>This page is for: {name}</h1>
 
-      <button
-        type="button"
-        onClick={() => {
-          // add tratamento quando tiver o ios
-          navigator.clipboard.writeText(
-            Platform.OS !== "Android" ? localHost : url
-          );
-        }}
+          <button
+            type="button"
+            className={styles.enter}
+            onClick={() => {
+              // add tratamento quando tiver o ios
+              handleClick();
+              navigator.clipboard.writeText(
+                Platform.OS !== "Android" ? localHost : url
+              );
+            }}
+          >
+            Share
+          </button>
+        </div>
+      )}
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        Share
-      </button>
+        <Alert onClose={handleClose} severity="success">
+          Link copied to the clipboard!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

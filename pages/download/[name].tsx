@@ -4,6 +4,7 @@ import styles from "../../styles/Home.module.css";
 import api from "../../src/api";
 import { useRouter } from "next/router";
 import Platform from "react-platform-js";
+import { title } from "node:process";
 
 interface User {
   name: string;
@@ -59,11 +60,25 @@ export default function Home() {
   const [url, setUrl] = useState<string>("");
 
   return (
-    <div className={styles.container2}>
-      {name && <h1>Esse é o {name}</h1>}
-      <button type="button">
-        <a href={drive}>Download</a>
-      </button>
+    <div className={styles.container}>
+      {name && (
+        <div className={styles.container2}>
+          <>
+            <h1 className={styles.H1Title}>
+              Download the app to see the page about the {name}
+            </h1>
+          </>
+          <button type="button" className={styles.enter}>
+            <a href={longDynamicLink}>Download</a>
+          </button>
+        </div>
+      )}
+      {name && Platform.OS !== "Android" && Platform.OS !== "Ios" && (
+        <h1 className={styles.H1Inform}>
+          Even if you are not on a mobile device, you will be redirected to the
+          Android download page
+        </h1>
+      )}
     </div>
   );
 }
