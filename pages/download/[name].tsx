@@ -66,7 +66,15 @@ export default function Home() {
             </h1>
           </>
           <button type="button" className={styles.enter}>
-            <a href={longDynamicLink}>Download</a>
+            <a
+              href={
+                Platform.OS !== "Android" && Platform.OS !== "Ios"
+                  ? drive
+                  : longDynamicLink
+              }
+            >
+              Download
+            </a>
           </button>
         </div>
       )}
