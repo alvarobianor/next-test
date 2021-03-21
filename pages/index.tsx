@@ -44,13 +44,10 @@ export default function Home() {
     };
 
     try {
-      console.log("Entrou");
-
       const {
         data: { user: userCreated },
       } = await api.post("/admin", user);
       setName("");
-      console.log(userCreated);
 
       handleClick();
     } catch (error) {
@@ -78,7 +75,6 @@ export default function Home() {
         <button className={styles.enter} type="submit">
           Create
         </button>
-        {/* <h2>{Platform.OS}</h2> */}
       </form>
       <Snackbar
         open={open}

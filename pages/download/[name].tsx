@@ -4,7 +4,6 @@ import styles from "../../styles/Home.module.css";
 import api from "../../src/api";
 import { useRouter } from "next/router";
 import Platform from "react-platform-js";
-import { title } from "node:process";
 
 interface User {
   name: string;
@@ -21,7 +20,6 @@ export default function Home() {
 
   const drive =
     "https://drive.google.com/drive/folders/1H8Yq-wkw9X1dyPpQZDNppjb9-A-tQanY?usp%3Dsharing";
-  // const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${drive}&ibi=com.example.ios`;
   const longDynamicLink = `https://alvarobianorrn.page.link/?link=http://alvarobianorrn/Nome?${urlName}&apn=com.alvarobianorrn&afl=${drive}&ibi=${drive}`;
 
   console.log(id);
@@ -44,7 +42,6 @@ export default function Home() {
       });
 
       const { shortLink } = await rawResponse.json();
-      console.log(shortLink);
       setUrl(shortLink);
     } catch (error) {
       console.log(error);
